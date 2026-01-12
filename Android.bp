@@ -41,6 +41,7 @@ android_app {
 
     static_libs: [
         "Launcher3ResLib",
+        "lib_launcherClient",
     ],
 
     srcs: [
@@ -86,6 +87,7 @@ android_app {
 
     static_libs: [
         "Launcher3QuickStepLib",
+        "lib_launcherClient",
         "SystemUISharedLib",
         "SystemUI-statsd",
     ],
