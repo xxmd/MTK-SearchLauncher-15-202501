@@ -1,0 +1,4 @@
+runtime_resource_overlay {
+    name: "GmsConfigOverlaySearchLauncher",
+    system_ext_specific: true,
+}

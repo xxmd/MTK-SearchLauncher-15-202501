@@ -1,0 +1,131 @@
+// Copyright (C) 2022 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+//
+// Prebuilt Launcher client library Libraries
+//
+package {
+    // See: http://go/android-license-faq
+    //   legacy_proprietary
+    default_applicable_licenses: [
+        "Android-Apache-2.0",
+    ],
+}
+
+java_import {
+    name: "lib_launcherClient",
+    installable: false,
+
+    jars: ["libs/launcher_client.jar"],
+    sdk_version: "28",
+}
+
+//
+// Search Launcher build rule
+//
+
+// Relative path for Launcher3 directory
+android_app {
+    name: "SearchLauncher",
+
+    static_libs: [
+        "Launcher3ResLib",
+        "lib_launcherClient",
+    ],
+
+    srcs: [
+        ":launcher-src",
+        ":launcher-src_no_quickstep",
+        ":launcher-build-config",
+        "src/**/*.java",
+        "src_base/**/*.java",
+    ],
+
+    optimize: {
+        proguard_flags_files: [ ":launcher-proguard-rules" ],
+    },
+
+    min_sdk_version: "31",
+    sdk_version: "current",
+    target_sdk_version: "current",
+
+    privileged: true,
+    system_ext_specific: true,
+    overrides: [
+        "Home",
+        "Launcher2",
+        "Launcher3",
+        "Launcher3QuickStep",
+		"MtkLauncher3QuickStep",
+    ],
+    required: [
+        "privapp_whitelist_com.android.launcher3",
+	"GmsConfigOverlaySearchLauncher",
+    ],
+    jacoco: {
+        include_filter: ["com.android.launcher3.*"],
+    },
+
+}
+
+//
+// Search Launcher QuickStep build rule
+//
+android_app {
+    name: "SearchLauncherQuickStep",
+
+    static_libs: [
+        "Launcher3QuickStepLib",
+        "lib_launcherClient",
+        "SystemUISharedLib",
+        "SystemUI-statsd",
+    ],
+
+    platform_apis: true,
+    target_sdk_version: "current",
+    min_sdk_version: "current",
+
+    srcs: [
+        "quickstep/src/**/*.java",
+        "src/**/*.java",
+    ],
+
+    resource_dirs: [
+        "quickstep/res",
+        "res",
+    ],
+
+    optimize: {
+        enabled: false,
+    },
+
+    privileged: true,
+    system_ext_specific: true,
+    overrides: [
+        "Home",
+        "Launcher2",
+        "Launcher3",
+        "Launcher3QuickStep",
+		"MtkLauncher3QuickStep",
+    ],
+    required: [
+        "privapp_whitelist_com.android.launcher3",
+	"GmsConfigOverlaySearchLauncherQuickStep",
+    ],
+    jacoco: {
+        include_filter: ["com.android.launcher3.*"],
+    },
+    additional_manifests: [":launcher3-quickstep-manifest"],
+
+}

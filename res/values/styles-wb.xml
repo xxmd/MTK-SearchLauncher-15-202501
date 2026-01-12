@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Start Launcher3 Style Switch add by qty -->
+    <style name="TransBgAppIcon" parent="BaseIcon.Workspace">
+        <item name="android:textColor">?attr/workspaceTextColor</item>
+        <item name="android:textSize">@dimen/drop_target_text_size</item>
+    </style>
+    <style name="TextAppearance.TileTitle" parent="@*android:style/TextAppearance.DeviceDefault.Subhead"/>
+    <style name="TextAppearance.Small" parent="@android:style/TextAppearance.DeviceDefault.Small"/>
+    <!-- End Launcher3 Style Switch add by qty -->
+    
+</resources>
